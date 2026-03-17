@@ -13,7 +13,7 @@ st.markdown("""
 }
 h1 {
     text-align: center;
-    color: #D9D9D9;
+    color: #ff4b4b;
 }
 </style>
 """, unsafe_allow_html=True)
