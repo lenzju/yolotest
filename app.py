@@ -2,25 +2,41 @@ import streamlit as st
 from PIL import Image
 from ultralytics import YOLO
 
-st.title("Simple Object Detection")
+st.set_page_config(page_title="Fashion AI", layout="centered")
 
-# Modell laden
+# CSS Styling
+st.markdown("""
+<style>
+.stApp {
+    background-color: #0e1117;
+    color: white;
+}
+h1 {
+    text-align: center;
+    color: #ff4b4b;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.title("👕 Fashion Detection AI")
+st.caption("Upload ein Bild und erkenne Kleidung automatisch")
+
 @st.cache_resource
 def load_model():
     return YOLO("yolov8n.pt")
 
 model = load_model()
 
-# Bild hochladen
-file = st.file_uploader("Upload Image", type=["jpg", "png", "jpeg"])
+with st.container():
+    file = st.file_uploader("📤 Bild hochladen", type=["jpg","png","jpeg"])
 
 if file:
     image = Image.open(file)
 
-    # YOLO kann direkt mit PIL arbeiten
-    results = model(image)
+    with st.spinner("🔍 Analysiere Bild..."):
+        results = model(image)
 
-    # Bild mit Bounding Boxen
-    result_image = results[0].plot()
+    result = results[0].plot()
 
-    st.image(result_image, caption="Detected Objects", use_container_width=True)
+    st.image(result, caption="Ergebnis", use_container_width=True)
+    st.success("Fertig!")
