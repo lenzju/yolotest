@@ -38,5 +38,7 @@ if file:
 
     result = results[0].plot()
 
+    result = result[:, :, ::-1]
+
     st.image(result, caption="Ergebnis", use_container_width=True)
     st.success("Fertig!")
