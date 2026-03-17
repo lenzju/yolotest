@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 from ultralytics import YOLO
 
-st.set_page_config(page_title="Sachen Finden", layout="centered")
+st.set_page_config(page_title="Fashion AI", layout="centered")
 
 # CSS Styling
 st.markdown("""
@@ -18,8 +18,8 @@ h1 {
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Detection AI")
-st.caption("Upload ein Bild und erkenne alles automatisch")
+st.title("👕 Fashion Detection AI")
+st.caption("Upload ein Bild und erkenne Kleidung automatisch")
 
 @st.cache_resource
 def load_model():
@@ -37,8 +37,6 @@ if file:
         results = model(image)
 
     result = results[0].plot()
-
-    result = result[:, :, ::-1]
 
     st.image(result, caption="Ergebnis", use_container_width=True)
     st.success("Fertig!")
